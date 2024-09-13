@@ -1,23 +1,8 @@
-window.onload = function () {
-  fetchItems();
-  initEventListeners();
-  document.getElementById("add-item-btn").addEventListener("click", addItemRow);
-  document.getElementById("save-order-btn").addEventListener("click", saveOrder);
-};
-
-// Register service worker for PWA functionality
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
-  .then(reg => console.log('Service Worker Registered:', reg))
-  .catch(err => console.log('Service Worker Registration Failed:', err));
-}
-
 let items = [];
 let orderId = '';
 
 function fetchItems() {
-  // Fetch items from your API or server
-  fetch('fetch-items.js')
+  fetch('data/items.json')
     .then(response => response.json())
     .then(data => {
       items = data;
@@ -29,7 +14,7 @@ function populateDropdowns() {
   $(".item-name").select2({
     placeholder: "Select an item",
     allowClear: true,
-    data: items.map(item => ({ id: item.name, text: item.name }))
+    data: items.map(item => ({ id: item.name, text: item.name })),
   }).on("change", autoCalculate);
 }
 
@@ -94,48 +79,49 @@ function initEventListeners() {
 function generateOrderId() {
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  const time = String(now.getTime()).slice(-4);
-  return `${year}${month}${day}-${time}`;
+  const month = (now.getMonth() + 1).toString().padStart(2, '0');
+  const day = now.getDate().toString().padStart(2, '0');
+  return `ORD-${year}${month}${day}-${now.getTime()}`;
 }
 
 function saveOrder() {
   const customerName = document.getElementById("customer-name").value;
   const description = document.getElementById("order-description").value;
-  const items = [];
-
-  document.querySelectorAll(".item-row").forEach(row => {
+  const order = [];
+  
+  document.querySelectorAll(".item-row").forEach(function (row) {
     const itemName = row.querySelector(".item-name").value;
     const quantity = row.querySelector(".item-quantity").value;
+    const itemPrice = items.find(item => item.name === itemName)?.price || 0;
+    const totalPrice = itemPrice * quantity;
+    
     if (itemName && quantity) {
-      items.push({ itemName, quantity });
+      order.push({
+        name: itemName,
+        quantity: quantity,
+        price: itemPrice,
+        totalPrice: totalPrice
+      });
     }
   });
 
-  if (items.length === 0 || !customerName) {
-    alert("Please add at least one item and enter the customer name.");
-    return;
-  }
-
-  const order = {
-    orderId: generateOrderId(),
+  const orderId = generateOrderId();
+  const orderData = {
+    id: orderId,
     customerName,
     description,
-    items
+    items: order
   };
 
-  fetch('save-order.js', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(order)
-  })
-  .then(response => response.json())
-  .then(result => {
-    alert("Order saved successfully! Order ID: " + result.orderId);
-    // Optionally clear the form or reset state
-  })
-  .catch(error => console.error("Error saving order:", error));
+  // Save order data to a file or server (Here it's just logging to console for demonstration)
+  console.log("Order Saved:", orderData);
+
+  alert(`Order ID: ${orderId}`);
 }
+
+document.getElementById("add-item-btn").addEventListener("click", addItemRow);
+document.getElementById("save-order-btn").addEventListener("click", saveOrder);
+
+document.addEventListener("DOMContentLoaded", function () {
+  fetchItems();
+});
