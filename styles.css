@@ -1,0 +1,137 @@
+/* Styling for the app */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden; /* Hide overflow to avoid scrollbars */
+}
+
+.container-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure it takes full viewport height */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Item row styling */
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.item-row select, .item-row input {
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Flexbox layout for item row fields */
+.item-row .item-name {
+  flex-basis: 50%;
+  margin-right: 10px;
+}
+
+.item-row .item-quantity, .item-row .item-price {
+  flex-basis: 20%;
+  text-align: right;
+}
+
+.item-row .item-price {
+  font-weight: bold;
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Add button styling */
+#add-item-btn, #save-order-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#save-order-btn {
+  background-color: #28a745;
+}
+
+#total {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Form elements styling */
+textarea, input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .item-row {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px;
+  }
+
+  .item-row select, .item-row input {
+    padding: 6px;
+    width: 100%;
+    text-align: left;
+  }
+
+  #add-item-btn, #save-order-btn {
+    padding: 12px;
+    font-size: 18px;
+  }
+
+  #total {
+    font-size: 16px;
+  }
+}
