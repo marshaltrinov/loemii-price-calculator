@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>LOEMII PRICE CALCULATOR</title>
+  
+  <!-- Include jQuery and Select2 for searchable dropdowns -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container-wrapper">
+    <div class="container">
+      <h2>LOEMII ORDER CALCULATOR</h2>
+      <input type="text" id="customer-name" placeholder="Customer Name" />
+      <textarea id="order-description" placeholder="Order Description"></textarea>
+      
+      <div id="item-container"></div>
+
+      <button id="add-item-btn">Add Item</button>
+
+      <div id="total">Total Price: Rp 0</div>
+
+      <button id="save-order-btn">Save Order</button>
+    </div>
+  </div>
+
+  <!-- Link to external JS -->
+  <script src="scripts.js"></script>
+</body>
+</html>
